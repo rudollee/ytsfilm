@@ -6,16 +6,18 @@ import type { FilmPack } from '@/types/FilmType';
 import { useGenreStore } from '@/stores/genreSelector';
 
   const genreStore = useGenreStore()
-  const genre = ref<string>(genreStore.genre);
-  const rating = ref<number>(genreStore.rating);
+  const genre = ref<string>('');
+  const rating = ref<number>(7);
 
   const filmData: FilmPack = reactive({})
-  
-  watch([genre], () => {
-    loadFilms();
-    console.log('genre store: ', genreStore.genre);
-  })
 
+  watch(() => genreStore.genre, (newValue) => {
+    genre.value = newValue;
+    rating.value = genreStore.rating;
+
+    loadFilms();
+  });
+  
   const loadFilms = () => {
     restApi.get(`list_movies.json?limit=50&genre=${genre.value ?? ''}&sort_by=date_added&minimum_rating=${rating.value}&quality=2160p`)
     .then(response => {

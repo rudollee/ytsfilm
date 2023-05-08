@@ -8,8 +8,6 @@ import { useGenreStore } from '@/stores/genreSelector';
 const genreHandler = (genre: string) => {
     const genreStore = useGenreStore();
     genreStore.changeGenre(genre);
-
-    console.log(genre);
 }
 
 </script>
