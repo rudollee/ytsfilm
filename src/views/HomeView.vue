@@ -23,7 +23,7 @@ import { useGenreStore } from '@/stores/genreSelector';
     .then(response => {
       // console.log(response.data)
 
-      filmData.movies = reactive(response.data.data.movies);
+      filmData.movies = reactive(response.data.data.movies.slice(0, 20));
 
       console.log(filmData)
     })
